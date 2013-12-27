@@ -40,7 +40,8 @@ Vagrant.configure("2") do |cluster|
             :bin_filename => "EventStore-Mono-v2.5.0rc4.tar.gz",
             :command => "./EventStore-Mono-v2.5.0rc4/clusternode",
             :config => {
-              :ip => node_ip 
+              :internalIp => node_ip,
+              :externalIp => node_ip
             }
           }
         }
