@@ -10,7 +10,8 @@ Vagrant.configure("2") do |cluster|
   cluster.omnibus.chef_version = :latest
 
   # Configure caching, so that cache can be shared among nodes, minimising downloads. Requires vagrant-cachier plugin
-  cluster.cache.auto_detect = true
+  # Uncomment next line to enable cachier, seems to cause problems on windows
+  #  cluster.cache.auto_detect = true
 
   # Enable berkshelf because it makes manages cookbooks much simpler. Required vagrant-berkshelf plugin
   cluster.berkshelf.enabled = true
