@@ -2,7 +2,8 @@
 
 Vagrant files to setup a local EventStore cluster using OpsCode Chef Cookbook
 
-    > This is a work in progress. Currently the  machines are created and a EventStore cluster node is started on each, machines are not yet configured to gossip with each other and for some reason the web ui isn't working.
+    > This is a work in progress.
+    > Cluster and gossip seem to be setup correctly now, but having issues with Projections.
 
 ## Usage 
 
