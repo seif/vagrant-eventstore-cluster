@@ -29,8 +29,7 @@ Vagrant.configure("2") do |cluster|
 
   seeds.each do |seed|
     cluster.vm.define seed['name'] do |config|
-      config.vm.box = "precise64"
-      config.vm.box_url = "http://files.vagrantup.com/precise64.box"
+      config.vm.box = "ubuntu/trusty64"
       config.vm.provider(:virtualbox) { |v| v.customize ["modifyvm", :id, "--memory", 1024] }
 
       config.vm.hostname = seed['name']
@@ -39,26 +38,17 @@ Vagrant.configure("2") do |cluster|
       # Provision using Chef.
       config.vm.provision :chef_solo do |chef|
         chef.json = {
-          :mono => {
-            :install_method => "ppa"
-          },
           :eventstore => {
-            :version => "2.5.0rc4",
-            :source_uri => "http://ha.geteventstore.com/showcase/",
-            :bin_filename => "EventStore-Mono-v2.5.0rc4.tar.gz",
-            :command => "./clusternode",
-            :install_dir => "/usr/local/eventstore/",
-            :executable_dir => "/usr/local/eventstore/EventStore-Mono-v2.5.0rc4",
             :config => {
-              :internalIp => seed['ip'],
-              :externalIp => seed['ip'],
-              :internalHttpPort => 2113,
-              :externalHttpPort => 2114,
-              :internalTcpPort => 1111,
-              :externalTcpPort => 1112,
-              :clusterSize => NODE_COUNT,
-              :useDnsDiscovery => false,
-              :gossipSeed => seeds.reject{|s| s['index'] == seed['index']}.map{|i| "#{i['ip']}:2113"}
+              :IntIp => seed['ip'],
+              :ExtIp => seed['ip'],
+              :IntHttpPort => 2113,
+              :ExtHttpPort => 2114,
+              :IntTcpPort => 1111,
+              :ExtTcpPort => 1112,
+              :ClusterSize => NODE_COUNT,
+              :DiscoverViaDns => false,
+              :GossipSeed => seeds.reject{|s| s['index'] == seed['index']}.map{|i| "#{i['ip']}:2113"}
             }
           }
         }
